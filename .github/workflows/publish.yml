@@ -1,0 +1,30 @@
+name: npm-publish
+on:
+  push:
+    branches:
+      - master
+jobs:
+  npm-publish:
+    name: npm-publish-server-folder
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@master
+    - id: publishcli
+      uses: JS-DevTools/npm-publish@v1
+      with:
+        token: ${{ secrets.NPM_AUTH_TOKEN }}
+        package: ./cli/package.json
+        access: 'public'
+    - name: Create Release kikotey startup service cli
+      if: steps.publishcli.outputs.type != 'none'
+      id: create_release_kikotey_startup_service_cli
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.publishcli.outputs.version }}
+        release_name: Release ${{ steps.publishcli.outputs.version }}
+        body: ${{ steps.publishcli.outputs.version }}
+        draft: false
+        prerelease: false
