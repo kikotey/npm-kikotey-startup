@@ -1,13 +1,13 @@
 {
   "name": "@kikotey/kikotey-startup-service-cli",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Console service CLI manager by kikotey inc",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "emu": "cli.sh"
+    "em": "cli.sh"
   },
   "author": "jack.crosnierdebellaistre@kikotey.com",
   "license": "ISC"
