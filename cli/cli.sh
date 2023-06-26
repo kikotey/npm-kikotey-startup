@@ -31,18 +31,70 @@ function main() {
     android)
       @android
       ;;
+    android2)
+      @android2
+      ;;
     adb)
       @adb
       ;;
+    kill)
+      @kill
+      ;;
+    status)
+      @status
+      ;;
+    ps)
+      @ps
+      ;;
     *)
-      @e "Usage: {android|adb}"
+	    @e "Usage: { android (6080) | android2 (6082) | adb | status | ps | kill }"
       exit 1
       ;;
   esac
 }
 
+@kill() {
+ docker rm android-container -f
+ docker rm android-container2 -f
+}
+
+@status() {
+echo " "
+echo "Devices status"
+echo " "
+adb devices
+echo " "
+}
+
+@ps() {
+echo " "
+echo "Devices process"
+echo " "
+docker ps
+echo " "
+}
+
 @android() {
-docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e DEVICE="Samsung Galaxy S9" -e DATAPARTITION="2000m" --name android-container budtmo/docker-android-x86-8.1
+result=$(sudo apt-get install -y cpu-checker)
+already_data=$(echo $result | grep "already")
+if [ -n "$already_data" ]; then echo "kvm is ready"; else echo "'$result'"; fi
+
+touch /dev/kvm
+kvm-ok
+
+docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e WEB_VNC_PORT=6080 -e EMULATOR_LANGUAGE="French" -e EMULATOR_COUNTRY="fr_FR" -e DATAPARTITION="2000m" --device /dev/kvm --name android-container kikotey/docker-android:emulator_11.0
+}
+
+
+@android2() {
+result=$(sudo apt-get install -y cpu-checker)
+already_data=$(echo $result | grep "already")
+if [ -n "$already_data" ]; then echo "kvm is ready"; else echo "'$result'"; fi
+
+touch /dev/kvm
+kvm-ok
+
+ docker run --privileged -d -p 6082:6080 -p 5556:5554 -p 5557:5555 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e WEB_VNC_PORT=6082 -e EMULATOR_LANGUAGE="English" -e EMULATOR_COUNTRY="en_US" -e DATAPARTITION="2000m" --name android-container2 kikotey/docker-android:emulator_11.0
 }
 
 @adb() {
