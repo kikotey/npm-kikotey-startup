@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "emulator": "cli.sh"
+    "emu": "cli.sh"
   },
   "author": "jack.crosnierdebellaistre@kikotey.com",
   "license": "ISC"
