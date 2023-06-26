@@ -37,8 +37,11 @@ function main() {
     adb)
       @adb
       ;;
-    kill)
-      @kill
+    kill1)
+      @kill1
+      ;;
+    kill2)
+      @kill2
       ;;
     status)
       @status
@@ -53,8 +56,11 @@ function main() {
   esac
 }
 
-@kill() {
+@kill1() {
  docker rm android-container -f
+}
+
+@kill2() {
  docker rm android-container2 -f
 }
 

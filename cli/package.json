@@ -1,6 +1,6 @@
 {
   "name": "@kikotey/kikotey-startup-service-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Console service CLI manager by kikotey inc",
   "main": "index.js",
   "scripts": {
