@@ -38,43 +38,47 @@ npm i -g @kikotey/kikotey-startup-service-cli
 ## With CLI
 
 
-Run the first emulator android on port 6080
+### Step 1:
+### a): Run the first emulator android on port 6080
 ```
-startup android
+emulator android
 ```
 Browse the android device (novnc) http://localhost:6080
 
 
-Run the seconde emulator android on port 6082
+### b): Run the seconde emulator android on port 6082
 ```
-startup android2
+emulator android2
 ```
 Browse the android2 device (novnc) http://localhost:6082
 
 
-Run ADB
+### c): Verify if the process device run with : 
 ```
-startup adb
-```
-
-Verify if the device is paired with : 
-```
-startup status
+emulator ps
 ```
 
-Verify if the process device run with : 
+
+### Step 2:
+### a): Run ADB for paired the subnetwork with the emulator android
 ```
-startup ps
+emulator adb
 ```
 
-Kill device 1 on port 6080 with : 
+### b): Verify if the device is paired with : 
 ```
-startup kill1
+emulator status
 ```
 
-Kill device 2 on port 6082 with : 
+### Step 3:
+### a): Kill device 1 on port 6080 with : 
 ```
-startup kill2
+emulator kill1
+```
+
+### b): Kill device 2 on port 6082 with : 
+```
+emulator kill2
 ```
 
 
