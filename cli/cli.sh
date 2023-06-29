@@ -50,7 +50,7 @@ function main() {
       @ps
       ;;
     *)
-	    @e "Usage: { android (6080) | android2 (6082) | adb | status | ps | kill }"
+            @e "Usage: { android (6080) | android2 (6082) | adb | status | ps | debug | | kill1 | kill2 | killdebug }"
       exit 1
       ;;
   esac
@@ -63,6 +63,21 @@ function main() {
 @kill2() {
  docker rm android-container2 -f
 }
+
+@killdebug() {
+ echo " "
+ echo "Debugger kill"
+ echo " "
+ fuser -k 52342/tcp
+}
+
+@debug() {
+ npx flipper-server &
+ echo " "
+ echo "Debugger run on port 52342"
+ echo " "
+}
+
 
 @status() {
 echo " "
@@ -110,4 +125,3 @@ adb devices
 }
 
 main "$@"
-

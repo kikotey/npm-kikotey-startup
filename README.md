@@ -1,4 +1,4 @@
- CLI SERVICE STARTER
+CLI SERVICE STARTER
 =====================
 
 New Usages:
@@ -25,6 +25,7 @@ New Usages:
 
 **Device** -  is a small hand-held device that has a display screen with touch input and/or a QWERTY keyboard and may provide users with telephony
 
+**Flipper** -  Flipper is a platform tool for debugging React Native projects on an emulator/simulator or a physical device.
 
 ## Install
 
@@ -81,8 +82,16 @@ em kill1
 em kill2
 ```
 
-
-
 if the target device is not paired rerun the cli command for adb
 
 
+### Step 4:
+### a): Start debugger on port 52342 with : 
+```
+em debug
+```
+
+### b): Kill debugger: 
+```
+em killdebug
+```
