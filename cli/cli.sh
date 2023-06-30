@@ -49,6 +49,12 @@ function main() {
     ps)
       @ps
       ;;
+    debug)
+      @debug
+      ;;
+    killdebug)
+      @killdebug
+      ;;
     *)
             @e "Usage: { android (6080) | android2 (6082) | adb | status | ps | debug | | kill1 | kill2 | killdebug }"
       exit 1
@@ -72,10 +78,13 @@ function main() {
 }
 
 @debug() {
- npx flipper-server &
+ cd 
+ npx flipper-server
+ cd -
  echo " "
  echo "Debugger run on port 52342"
  echo " "
+
 }
 
 
