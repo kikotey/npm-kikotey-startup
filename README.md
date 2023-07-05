@@ -88,13 +88,20 @@ if the target device is not paired rerun the cli command for adb
 ### Step 4:
 ### a): install a new APK in the android emulator device by default (emulator-5554): 
 ```
-em install expo/kikotey-app.apk 
+em install <path to the apk>
+```
+```
+example: em install expo/kikotey-app.apk 
 ```
 
 ### b): install a new APK in a specific android emulator device: 
 ```
-em install expo/kikotey-app.apk emulator-675423 
+em install <path to the apk> <device name>
 ```
+```
+example: em install expo/kikotey-app.apk emulator-675423 
+```
+
 
 ### Step 5:
 ### a): list all packages installed in the android emulator device by default (emulator-5554): 
@@ -104,8 +111,12 @@ em packages
 
 ### b): list all packages installed in a specific android emulator device: 
 ```
-em packages emulator-675423
+em packages <device name>
 ```
+```
+example: em packages emulator-675423
+```
+
 
 ### Step 6:
 ### a): Open a new shell and in start the debugger on port 52342 with : 
