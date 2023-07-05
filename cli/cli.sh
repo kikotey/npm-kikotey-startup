@@ -1,6 +1,8 @@
 #!/bin/bash
 # Action to execute (mandatoty)
 action="$1"  
+path="$2"
+device="$3"
 # Friendly service name (optional)
 serviceName=cli
 # Command to run (optional, array variable)
@@ -55,11 +57,33 @@ function main() {
     killdebug)
       @killdebug
       ;;
+    packages)
+      @packages
+      ;;
+    install)
+      @install
+      ;;
     *)
-            @e "Usage: { android (6080) | android2 (6082) | adb | status | ps | debug | | kill1 | kill2 | killdebug }"
+            @e "Usage: { android (6080) | android2 (6082) | adb | status | ps | debug | | kill1 | kill2 | killdebug | packages | install }"
       exit 1
       ;;
   esac
+}
+
+@packages() {
+    if [[ -z "${device}" ]]; then
+      adb -s "emulator-5554" shell pm list packages
+    else
+      adb -s $device shell pm list packages
+    fi
+}
+
+@install() {
+    if [[ -z "${device}" ]]; then
+      adb -s "emulator-5554" install $path
+    else
+      adb -s $device install $path
+    fi
 }
 
 @kill1() {
