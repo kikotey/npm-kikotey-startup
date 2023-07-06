@@ -30,20 +30,38 @@ command=()
 # Service menu
 function main() {
   case "$action" in
-    android)
-      @android
+    android80)
+      @android80
       ;;
-    android2)
-      @android2
+    android82)
+      @android82
+      ;;
+    android83)
+      @android83
+      ;;
+    android84)
+      @android84
+      ;;
+    android85)
+      @android85
       ;;
     adb)
       @adb
       ;;
-    kill1)
-      @kill1
+    kill80)
+      @kill80
       ;;
-    kill2)
-      @kill2
+    kill82)
+      @kill82
+      ;;
+    kill83)
+      @kill83
+      ;;
+    kill84)
+      @kill84
+      ;;
+    kill85)
+      @kill85
       ;;
     status)
       @status
@@ -63,11 +81,35 @@ function main() {
     install)
       @install
       ;;
+    uninstall)
+      @uninstall
+      ;;
+    processsys)
+      @processsys
+      ;;
+    processport)
+      @processport
+      ;;
+    killprocess)
+      @killprocess
+      ;;
     *)
-            @e "Usage: { android (6080) | android2 (6082) | adb | status | ps | debug | | kill1 | kill2 | killdebug | packages | install }"
+            @e "Usage: { android80 (6080) | android82 (6082) | android83 (6083) | android84 (6084) | android85 (6085) | adb | status | ps | debug | | kill80 | kill82 | kill83 | kill84 | kill85 | killdebug | packages | install | uninstall | processsys | processport | killprocess }"
       exit 1
       ;;
   esac
+}
+
+@processsys() {
+    ps -aux
+}
+
+@processport() {
+    netstat -peanut
+}
+
+@killprocess() {
+     fuser -k $2/tcp
 }
 
 @packages() {
@@ -86,12 +128,33 @@ function main() {
     fi
 }
 
-@kill1() {
- docker rm android-container -f
+
+@uninstall() {
+    if [[ -z "${device}" ]]; then
+      adb -s "emulator-5554" uninstall $path
+    else
+      adb -s $device uninstall  $path
+    fi
 }
 
-@kill2() {
- docker rm android-container2 -f
+@kill80() {
+ docker rm android-container80 -f
+}
+
+@kill82() {
+ docker rm android-container82 -f
+}
+
+@kill83() {
+ docker rm android-container83 -f
+}
+
+@kill84() {
+ docker rm android-container84 -f
+}
+
+@kill85() {
+ docker rm android-container85 -f
 }
 
 @killdebug() {
@@ -111,7 +174,6 @@ function main() {
 
 }
 
-
 @status() {
 echo " "
 echo "Devices status"
@@ -128,7 +190,7 @@ docker ps
 echo " "
 }
 
-@android() {
+@android80() {
 result=$(sudo apt-get install -y cpu-checker)
 already_data=$(echo $result | grep "already")
 if [ -n "$already_data" ]; then echo "kvm is ready"; else echo "'$result'"; fi
@@ -136,11 +198,11 @@ if [ -n "$already_data" ]; then echo "kvm is ready"; else echo "'$result'"; fi
 touch /dev/kvm
 kvm-ok
 
-docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e WEB_VNC_PORT=6080 -e EMULATOR_LANGUAGE="French" -e EMULATOR_COUNTRY="fr_FR" -e DATAPARTITION="2000m" --device /dev/kvm --name android-container kikotey/docker-android:emulator_11.0
+docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e WEB_VNC_PORT=6080 -e EMULATOR_LANGUAGE="French" -e EMULATOR_COUNTRY="fr_FR" -e DATAPARTITION="2000m" --device /dev/kvm --name android-container80 kikotey/docker-android:emulator_11.0
 }
 
 
-@android2() {
+@android82() {
 result=$(sudo apt-get install -y cpu-checker)
 already_data=$(echo $result | grep "already")
 if [ -n "$already_data" ]; then echo "kvm is ready"; else echo "'$result'"; fi
@@ -148,7 +210,7 @@ if [ -n "$already_data" ]; then echo "kvm is ready"; else echo "'$result'"; fi
 touch /dev/kvm
 kvm-ok
 
- docker run --privileged -d -p 6082:6080 -p 5556:5554 -p 5557:5555 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e WEB_VNC_PORT=6082 -e EMULATOR_LANGUAGE="English" -e EMULATOR_COUNTRY="en_US" -e DATAPARTITION="2000m" --name android-container2 kikotey/docker-android:emulator_11.0
+ docker run --privileged -d -p 6082:6080 -p 5556:5554 -p 5557:5555 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e WEB_VNC_PORT=6082 -e EMULATOR_LANGUAGE="English" -e EMULATOR_COUNTRY="en_US" -e DATAPARTITION="2000m" --name android-container82 kikotey/docker-android:emulator_11.0
 }
 
 @adb() {
@@ -156,5 +218,42 @@ sudo adb kill-server
 sudo adb start-server
 adb devices
 }
+
+
+@android83() {
+result=$(sudo apt-get install -y cpu-checker)
+already_data=$(echo $result | grep "already")
+if [ -n "$already_data" ]; then echo "kvm is ready"; else echo "'$result'"; fi
+
+touch /dev/kvm
+kvm-ok
+
+ docker run --privileged -d -p 6083:6080 -p 5558:5554 -p 5559:5555 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e WEB_VNC_PORT=6083 -e EMULATOR_LANGUAGE="English" -e EMULATOR_COUNTRY="en_US" -e DATAPARTITION="2000m" --name android-container83 kikotey/docker-android:emulator_11.0
+}
+
+
+@android84() {
+result=$(sudo apt-get install -y cpu-checker)
+already_data=$(echo $result | grep "already")
+if [ -n "$already_data" ]; then echo "kvm is ready"; else echo "'$result'"; fi
+
+touch /dev/kvm
+kvm-ok
+
+ docker run --privileged -d -p 6084:6080 -p 5560:5554 -p 5561:5555 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e WEB_VNC_PORT=6084 -e EMULATOR_LANGUAGE="English" -e EMULATOR_COUNTRY="en_US" -e DATAPARTITION="2000m" --name android-container84 kikotey/docker-android:emulator_11.0
+}
+
+
+@android85() {
+result=$(sudo apt-get install -y cpu-checker)
+already_data=$(echo $result | grep "already")
+if [ -n "$already_data" ]; then echo "kvm is ready"; else echo "'$result'"; fi
+
+touch /dev/kvm
+kvm-ok
+
+ docker run --privileged -d -p 6085:6080 -p 5562:5554 -p 5563:5555 -e EMULATOR_DEVICE="Samsung Galaxy S10" -e WEB_VNC=true -e WEB_VNC_PORT=6085 -e EMULATOR_LANGUAGE="English" -e EMULATOR_COUNTRY="en_US" -e DATAPARTITION="2000m" --name android-container85 kikotey/docker-android:emulator_11.0
+}
+
 
 main "$@"

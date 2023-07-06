@@ -35,6 +35,14 @@ Install via npm or yarn
 npm i -g @kikotey/kikotey-startup-service-cli
 ```
 
+## Update
+
+Update via npm or yarn
+
+```
+npm update -g @kikotey/kikotey-startup-service-cli
+```
+
 
 ## With CLI
 
@@ -42,14 +50,14 @@ npm i -g @kikotey/kikotey-startup-service-cli
 ### Step 1:
 ### a): Run the first emulator android on port 6080
 ```
-em android
+em android80
 ```
 Browse the android device (novnc) http://localhost:6080
 
 
 ### b): Run the seconde emulator android on port 6082
 ```
-em android2
+em android82
 ```
 Browse the android2 device (novnc) http://localhost:6082
 
@@ -72,14 +80,14 @@ em status
 ```
 
 ### Step 3:
-### a): Kill device 1 on port 6080 with : 
+### a): Kill device on port 6080 with : 
 ```
-em kill1
+em kill80
 ```
 
-### b): Kill device 2 on port 6082 with : 
+### b): Kill device on port 6082 with : 
 ```
-em kill2
+em kill82
 ```
 
 if the target device is not paired rerun the cli command for adb
@@ -119,6 +127,23 @@ example: em packages emulator-675423
 
 
 ### Step 6:
+### a): uninstall a APK in the android emulator device by default (emulator-5554): 
+```
+em uninstall <path to the apk>
+```
+```
+example: em uninstall expo/kikotey-app.apk 
+```
+
+### b): uninstall a APK in a specific android emulator device: 
+```
+em uninstall <path to the apk> <device name>
+```
+```
+example: em uninstall expo/kikotey-app.apk emulator-675423 
+```
+
+### Step 7:
 ### a): Open a new shell and in start the debugger on port 52342 with : 
 ```
 em debug
@@ -128,3 +153,24 @@ em debug
 ```
 em killdebug
 ```
+
+### Others actions:
+### a): Display all process port : 
+```
+em processport
+```
+
+### b): Display all process system: 
+```
+em processsys
+```
+
+### c): kill a process running on particular port: 
+```
+em killprocess <port number>
+```
+
+```
+example: em killprocess 8081
+```
+
